@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material.Divider
 import org.android.dev.meetup.composecodelabone.ui.theme.ComposeCodelabOneTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +21,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApp {
-                Greeting("Android")
+                MyScreenContent()
             }
         }
     }
@@ -35,14 +37,23 @@ fun MyApp(content: @Composable () -> Unit) {
 }
 
 @Composable
+fun MyScreenContent() {
+    Column {
+        Greeting("Android")
+        Divider(color = Color.Black)
+        Greeting("there")
+    }
+}
+
+@Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!", modifier = Modifier.padding(24.dp))
 }
 
-@Preview("Text preview")
+@Preview("MyScreen preview")
 @Composable
 fun DefaultPreview() {
     MyApp {
-        Greeting("Android")
+        MyScreenContent()
     }
 }
