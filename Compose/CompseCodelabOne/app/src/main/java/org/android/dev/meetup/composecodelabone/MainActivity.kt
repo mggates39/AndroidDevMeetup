@@ -18,12 +18,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposeCodelabOneTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
-            }
+            MyApp()
+        }
+    }
+}
+
+@Composable
+fun MyApp() {
+    ComposeCodelabOneTheme {
+        Surface(color = Color.Yellow) {
+            Greeting(name = "Android")
         }
     }
 }
