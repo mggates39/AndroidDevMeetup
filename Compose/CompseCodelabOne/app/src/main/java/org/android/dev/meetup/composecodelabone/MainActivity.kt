@@ -18,39 +18,31 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApp()
+            MyApp {
+                Greeting("Android")
+            }
         }
     }
 }
 
 @Composable
-fun MyApp() {
+fun MyApp(content: @Composable () -> Unit) {
     ComposeCodelabOneTheme {
         Surface(color = Color.Yellow) {
-            Greeting(name = "Android")
+            content()
         }
     }
 }
 
 @Composable
 fun Greeting(name: String) {
-    Surface(color = Color.Yellow) {
-        Text(text = "Hello $name!", modifier = Modifier.padding(24.dp))
-    }
+    Text(text = "Hello $name!", modifier = Modifier.padding(24.dp))
 }
 
-@Preview(showBackground = true)
+@Preview("Text preview")
 @Composable
 fun DefaultPreview() {
-    ComposeCodelabOneTheme {
-        Greeting("Android")
-    }
-}
-
-@Preview(showBackground = true, name = "Text preview")
-@Composable
-fun TextPreview() {
-    ComposeCodelabOneTheme {
+    MyApp {
         Greeting("Android")
     }
 }
