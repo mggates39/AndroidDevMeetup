@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Divider
 import org.android.dev.meetup.composecodelabone.ui.theme.ComposeCodelabOneTheme
+import androidx.compose.material.Button
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,17 +41,32 @@ fun MyApp(content: @Composable () -> Unit) {
 
 @Composable
 fun MyScreenContent(names: List<String> = listOf("Android", "there", "Joe")) {
+    val counterState = remember { mutableStateOf(0) }
     Column {
         for (name in names) {
             Greeting(name = name)
             Divider(color = Color.Black)
         }
+        Divider(color = Color.Transparent, thickness = 32.dp)
+        Counter(
+            count = counterState.value,
+            updateCount = { newCount ->
+                counterState.value = newCount
+            }
+        )
     }
 }
 
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!", modifier = Modifier.padding(24.dp))
+}
+
+@Composable
+fun Counter(count: Int, updateCount: (Int) -> Unit) {
+    Button(onClick = { updateCount(count+1) }) {
+        Text("I've been clicked $count times")
+    }
 }
 
 @Preview("MyScreen preview")
