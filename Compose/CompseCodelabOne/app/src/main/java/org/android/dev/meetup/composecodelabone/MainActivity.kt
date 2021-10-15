@@ -53,7 +53,7 @@ fun NameList(names: List<String>, modifier: Modifier = Modifier) {
     }
 }
 @Composable
-fun MyScreenContent(names: List<String> = List(1000) { "Hello Android #$it" }) {
+fun MyScreenContent(names: List<String> = List(1000) { "Android #$it" }) {
     val counterState = remember { mutableStateOf(0) }
 
     Column(modifier = Modifier.fillMaxHeight()) {
@@ -76,6 +76,7 @@ fun Greeting(name: String) {
     Text(
         text = "Hello $name!",
         color = textColor,
+        style = MaterialTheme.typography.body1,
         modifier = Modifier
             .padding(24.dp)
             .background(color = backgroundColor)
