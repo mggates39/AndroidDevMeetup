@@ -45,7 +45,7 @@ class FirstFragment : Fragment() {
             val url = "https://cat-fact.herokuapp.com/facts/random"
             val stringRequest = JsonObjectRequest(Request.Method.GET, url, null,
                 Response.Listener { response ->
-                    textView.text = "Response: %s".format(response.toString())
+                    textView.text = response.getString("text")
                 },
                 Response.ErrorListener { textView.text = "That didn't work!" })
 
