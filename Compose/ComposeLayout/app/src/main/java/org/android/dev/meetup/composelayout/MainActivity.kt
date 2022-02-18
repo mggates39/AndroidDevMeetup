@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.rememberImagePainter
 import kotlinx.coroutines.launch
 import org.android.dev.meetup.composelayout.ui.theme.ComposeLayoutTheme
@@ -107,19 +108,20 @@ fun LayoutsCodelab() {
 
 @Composable
 fun BodyContent(modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier
-            .background(color = Color.LightGray)
-            .size(250.dp)
-            .padding(16.dp)
-            .horizontalScroll(rememberScrollState())
-    ) {
-        StaggeredGrid {
-            for (topic in topics) {
-                Chip(modifier = Modifier.padding(8.dp), text = topic)
-            }
-        }
-    }
+    ConstraintLayoutContent()
+//    Row(
+//        modifier = modifier
+//            .background(color = Color.LightGray)
+//            .size(250.dp)
+//            .padding(16.dp)
+//            .horizontalScroll(rememberScrollState())
+//    ) {
+//        StaggeredGrid {
+//            for (topic in topics) {
+//                Chip(modifier = Modifier.padding(8.dp), text = topic)
+//            }
+//        }
+//    }
 }
 
 val topics = listOf(
@@ -230,6 +232,42 @@ fun Chip(modifier: Modifier = Modifier, text: String) {
             Spacer(Modifier.width(4.dp))
             Text(text = text)
         }
+    }
+}
+
+@Composable
+fun ConstraintLayoutContent() {
+    ConstraintLayout {
+
+        // Create references for the composables to constrain
+        val (button, text) = createRefs()
+
+        Button(
+            onClick = { /* Do something */ },
+            // Assign reference "button" to the Button composable
+            // and constrain it to the top of the ConstraintLayout
+            modifier = Modifier.constrainAs(button) {
+                top.linkTo(parent.top, margin = 16.dp)
+            }
+        ) {
+            Text("Button")
+        }
+
+        // Assign reference "text" to the Text composable
+        // and constrain it to the bottom of the Button composable
+        Text("Text", Modifier.constrainAs(text) {
+            top.linkTo(button.bottom, margin = 16.dp)
+            // Centers Text horizontally in the ConstraintLayout
+            centerHorizontallyTo(parent)
+        })
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ConstraintLayoutContentPreview() {
+    ComposeLayoutTheme {
+        ConstraintLayoutContent()
     }
 }
 
