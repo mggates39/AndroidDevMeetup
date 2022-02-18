@@ -106,12 +106,6 @@ fun LayoutsCodelab() {
 
 @Composable
 fun BodyContent(modifier: Modifier = Modifier) {
-//    LazyList()
-//    Column(modifier = modifier) {
-//        Text(text = "Hi there!")
-//        Text(text = "Thanks for going through the Layouts codelab")
-//        SimpleList()
-//    }
     MyOwnColumn(modifier.padding(8.dp)) {
         Text("MyOwnColumn")
         Text("places items")
@@ -173,101 +167,10 @@ fun MyOwnColumn(
     }
 }
 
-@Composable
-fun SimpleList() {
-    // We save the scrolling position with this state that can also
-    // be used to programmatically scroll the list
-    val scrollState = rememberScrollState()
-
-    Column(Modifier.verticalScroll(scrollState)) {
-        repeat(100) {
-            Text("Item #$it")
-        }
-    }
-}
-
-@Composable
-fun LazyList() {
-    val listSize = 100
-    // We save the scrolling position with this state
-    val scrollState = rememberLazyListState()
-    // We save the coroutine scope where our animated scroll will be executed
-    val coroutineScope = rememberCoroutineScope()
-
-    Column {
-        Row {
-            Button(onClick = {
-                coroutineScope.launch {
-                    // 0 is the first item index
-                    scrollState.animateScrollToItem(0)
-                }
-            }) {
-                Text("Scroll to the top")
-            }
-
-            Button(onClick = {
-                coroutineScope.launch {
-                    // listSize - 1 is the last index of the list
-                    scrollState.animateScrollToItem(listSize - 1)
-                }
-            }) {
-                Text("Scroll to the end")
-            }
-        }
-
-        LazyColumn(state = scrollState) {
-            items(listSize) {
-                ImageListItem(it)
-            }
-        }
-    }
-}
-
-@Composable
-fun ImageListItem(index: Int) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-
-        Image(
-            painter = rememberImagePainter(
-                data = "https://developer.android.com/images/brand/Android_Robot.png"
-            ),
-            contentDescription = "Android Logo",
-            modifier = Modifier.size(50.dp)
-        )
-        Spacer(Modifier.width(10.dp))
-        Text("Item #$index", style = MaterialTheme.typography.subtitle1)
-    }
-}
-
 @Preview(showBackground = true)
 @Composable
 fun LayoutsCodelabPreview() {
     ComposeLayoutTheme {
         LayoutsCodelab()
-    }
-}
-
-//
-//@Preview(showBackground = false)
-//@Composable
-//fun PhotographerCardPreview() {
-//    ComposeLayoutTheme {
-//        PhotographerCard()
-//    }
-//}
-
-@Preview(showBackground = true)
-@Composable
-fun TextWithPaddingToBaselinePreview() {
-    ComposeLayoutTheme {
-        Text("Hi there!", Modifier.firstBaselineToTop(32.dp))
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TextWithNormalPaddingPreview() {
-    ComposeLayoutTheme {
-        Text("Hi there!", Modifier.padding(top = 32.dp))
     }
 }
