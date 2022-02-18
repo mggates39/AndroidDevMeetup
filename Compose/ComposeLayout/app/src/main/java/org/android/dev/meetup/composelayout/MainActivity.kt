@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import coil.compose.rememberImagePainter
 import kotlinx.coroutines.launch
 import org.android.dev.meetup.composelayout.ui.theme.ComposeLayoutTheme
@@ -285,6 +286,29 @@ fun ChipPreview() {
     }
 }
 
+@Composable
+fun LargeConstraintLayout() {
+    ConstraintLayout {
+        val text = createRef()
+
+        val guideline = createGuidelineFromStart(fraction = 0.5f)
+        Text(
+            "This is a very very very very very very very long text",
+            Modifier.constrainAs(text) {
+                linkTo(start = guideline, end = parent.end)
+                width = Dimension.preferredWrapContent
+            }
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LargeConstraintLayoutPreview() {
+    ComposeLayoutTheme {
+        LargeConstraintLayout()
+    }
+}
 @Composable
 fun MyOwnColumn(
     modifier: Modifier = Modifier,
