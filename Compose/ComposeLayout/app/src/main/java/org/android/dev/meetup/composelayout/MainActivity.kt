@@ -379,7 +379,7 @@ private fun decoupledConstraints(margin: Dp): ConstraintSet {
 
 @Composable
 fun TwoTexts(modifier: Modifier = Modifier, text1: String, text2: String) {
-    Row(modifier = modifier) {
+    Row(modifier = modifier.height(IntrinsicSize.Min)) {
         Text(
             modifier = Modifier
                 .weight(1f)
@@ -394,7 +394,6 @@ fun TwoTexts(modifier: Modifier = Modifier, text1: String, text2: String) {
                 .weight(1f)
                 .padding(end = 4.dp)
                 .wrapContentWidth(Alignment.End),
-
             text = text2
         )
     }
